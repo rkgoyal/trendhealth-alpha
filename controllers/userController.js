@@ -71,7 +71,7 @@ exports.user_login_get = function(req, res){
 // Login process on POST
 exports.user_login_post = function(req, res, next){
   passport.authenticate('local', {
-    successRedirect:'/',
+    successRedirect:'/connect',
     failureRedirect:'/users/login',
     failureFlash: true
   })(req, res, next);

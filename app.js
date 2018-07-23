@@ -11,10 +11,6 @@ const session = require('express-session');
 const passport = require('passport');
 const config = require('./config/database');
 
-// Import routes
-var index = require('./routes/index');
-var users = require('./routes/users');
-
 var compression = require('compression');
 var helmet = require('helmet');
 
@@ -86,6 +82,7 @@ app.use(expressValidator({
 
 // Passport Config
 require('./config/passport')(passport);
+
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -95,11 +92,15 @@ app.get('*', function(req, res, next){
   next();
 });
 
+// Import routes
+var index = require('./routes/index');
+var users = require('./routes/users');
+var connect = require('./routes/connect');
 
 // Add routes to middleware chain.
 app.use('/', index);
 app.use('/users', users);
-
+app.use('/connect', connect);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
